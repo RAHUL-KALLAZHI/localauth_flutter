@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +18,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late SharedPreferenceService sharedPrfns;
   late AuthService authService;
+
+  void closeApp() {
+    if (Platform.isAndroid) {
+      SystemNavigator
+          .pop(); //close app on android device when back button pressed from splash screen page
+    } else if (Platform.isIOS) {
+      exit(0);
+    }
+  }
 
   @override
   void initState() {
@@ -58,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
               actions: [
                 TextButton(
                     onPressed: () {
-                      SystemNavigator.pop();
+                      closeApp();
                     },
                     child: const Text("OK")),
               ],
